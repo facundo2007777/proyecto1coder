@@ -13,6 +13,7 @@ class CartManager{
     }
   }
 
+  //addCart
   async addCart (){
     try {
       const cartJson = await fs.promises.readFile(this.path, "utf-8");
@@ -28,6 +29,7 @@ class CartManager{
     }
   }
 
+  //getProductsInCartById
   async getProductsInCartById(cid){
     try {
       const cartJson = await fs.promises.readFile(this.path, "utf-8");
@@ -40,14 +42,16 @@ class CartManager{
     }
   }
 
-
+  //addProductInCart
   async addProductInCart(cid, pid, quantity){
     try {
       const cartJson = await fs.promises.readFile(this.path, "utf-8");
       const carts = JSON.parse(cartJson);
 
+      //verificar si el carrito existe
       carts.forEach(cart => {
         if(cart.id == cid){
+          //condicional, si el producto ya existe en el carrito, entonces sumar cantidad, sino pushearlo como nuevo
           cart.products.push({ id: parseInt(pid), quantity });
         }
       });
